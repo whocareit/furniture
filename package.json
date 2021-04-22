@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.15.0",
     "craco-less": "^1.17.1",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^4.2.0",
@@ -43,6 +44,8 @@
   "devDependencies": {
     "@ant-design/icons": "^4.6.2",
     "axios": "^0.21.1",
-    "http-proxy-middleware": "^0.19.1"
+    "http-proxy-middleware": "^0.19.1",
+    "react-redux": "^7.2.3",
+    "redux": "^4.0.5"
   }
 }

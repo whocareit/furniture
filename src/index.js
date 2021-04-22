@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
 import Router from './route';
+import { Provider } from 'react-redux';
+import configStore from './redux/store';
+const store = configStore()
 
 ReactDOM.render(
-  <Router />
+  <Provider store={store}>
+    <Router />
+  </Provider>
   ,
   document.getElementById('root')
 );

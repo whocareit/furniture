@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 
-export const get = (baseUrl, url, params) => {
+export const get = (baseUrl, url, params={}) => {
     return new Promise((resolve, reject) => {
         axios.get(baseUrl + url, { params: params})
         .then((res, err) => {
             if(res) {
-                return resolve(res);
+                return resolve(res.data);
             }
 
             return reject(err);
