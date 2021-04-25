@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './index.less';
 import { type } from '../../redux/action';
+import { notification } from 'antd';
 
 
 class Header extends Component {
@@ -17,6 +18,7 @@ class Header extends Component {
         }
 
         this.getCurIndex = this.getCurIndex.bind(this);
+        this.handleLoginOut = this.handleLoginOut.bind(this);
     }
 
 
@@ -39,24 +41,33 @@ class Header extends Component {
 
     }
 
+    handleLoginOut () {
+        this.props.setLogin(false)
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        notification.success({
+            message: '退出登录'
+        })
+    }
+
 
     render() {
         return(
             <div className="HeaderWrapper">
                 <div className="HeaderLeft">仓山帅木匠家具</div>
                 <div className="HeaderContent">
-                   {
-                       this.state.label.map((item, index) => (
-                           <div 
+                    {
+                        this.state.label.map((item, index) => (
+                            <div 
                             style={{cursor: 'pointer'}}
                             className={this.state.status === index ? "HeaderList": ""} 
                             key={`${item}-${index}`}
                             onClick={() => this.getCurIndex(index)}
                         >
-                               {item}
-                           </div>
-                       ))
-                   }
+                                {item}
+                            </div>
+                        ))
+                    }
                 </div>
                 <div className="HeaderRight">
                     {
@@ -65,6 +76,7 @@ class Header extends Component {
                                 {this.props.username}
                             </div> 
                             <Link to='/backend' style={{color: '#fff'}}><div style={{width: "100%", textAlign: 'center'}}>切换到管理后台</div></Link>
+                            <div className="loginOut" onClick={this.handleLoginOut}>退出登录</div>
                         </div>):  
                             <div style={{width: '100%', textAlign: 'center'}}>
                                 <Link to="/login" style={{color: '#fff'}}>未登录，请先去登录</Link>
