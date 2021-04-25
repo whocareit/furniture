@@ -33,19 +33,23 @@ export const sideConfig = [
         key: '4',
         title: '图片轮播',
     },
+    // {
+    //     key: '5data',
+    //     title: '数据详情',
+    //     child:[
+    //         {
+    //             key: '5data,0',
+    //             title: '利润计算'
+    //         },
+    //         {
+    //             key: '5data,1',
+    //             title: '推荐进货'
+    //         }
+    //     ]
+    // },
     {
-        key: '5data',
-        title: '数据详情',
-        child:[
-            {
-                key: '5data,0',
-                title: '利润计算'
-            },
-            {
-                key: '5data,1',
-                title: '推荐进货'
-            }
-        ]
+        key: '6',
+        title: '文件上传'
     }
 ]
 

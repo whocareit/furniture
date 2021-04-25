@@ -11,6 +11,7 @@ import Display from  './pages/display';
 import CarouselManege from './pages/new';
 import Profit from './pages/data_detail/profit';
 import Recommend from './pages/data_detail/recommond';
+import FileUpload from './pages/upload'
 
 import './index.less'
 
@@ -82,6 +83,8 @@ class Backend extends Component {
                 return <Profit />
             case '5data,1' :
                 return <Recommend />
+            case '6' :
+                return <FileUpload />
         }
     }
 
