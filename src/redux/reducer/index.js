@@ -4,6 +4,7 @@ const initState = {
     isLogin: false,
     username: '',
     status: 0,
+    detail: '',
 }
 
 export default(state = initState, action) => {
@@ -13,23 +14,24 @@ export default(state = initState, action) => {
             ...state,
             isLogin: action.isLogin
         }
-        break;
         case type.SET_USERNAME:
             return {
                 ...state,
                 username: action.username
             }
-        break;
         case type.SET_STATUS:
             return {
                 ...state,
                 status: action.status
             }
-        break;
+        case type.ORDER_DETAIL:
+            return {
+                ...state,
+                detail: action.detail
+            }
         default: 
             return {
                 ...state
             }
-        break
     }
 }

@@ -30,7 +30,6 @@ class Login extends Component {
         }
 
         userLogin(params).then(res => {
-            console.log(res)
             if(res.errno === 0) {
                 notification.success({
                     message: '登录成功'

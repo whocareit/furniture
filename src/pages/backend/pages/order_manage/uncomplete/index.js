@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Table, Space, Button, notification} from 'antd';
-import { getComplete, changeStatue } from '../../../../../api/order';
-import './index.less'
 import { cloneDeep } from 'lodash';
+import { 
+    getComplete,
+    changeStatue,
+    deleteOrder
+} from '../../../../../api/order';
+import './index.less';
+import { connect } from 'react-redux';
+import { type } from '../../../../../redux/action';
+
 
 class UnComplete extends Component {
     constructor() {
@@ -55,6 +62,24 @@ class UnComplete extends Component {
         const { order_id } = record;
         const { pageSize, current } = this.state.pagination;
         changeStatue({order_id}).then(res => {
+            const { errno, data } = res;
+            if(errno === 0) {
+                notification.success({
+                    message: data.info
+                })
+                this.dealReq({current, pageSize});
+            } else {
+                notification.error({
+                    message: data.info
+                })
+            }
+        })
+    }
+
+    handleDeleteOrder = (record) => {
+        const { key } = record;
+        const { pageSize, current } = this.state.pagination;
+        deleteOrder({key}).then(res => {
             const { errno, data } = res;
             if(errno === 0) {
                 notification.success({
@@ -122,6 +147,8 @@ class UnComplete extends Component {
                 render: (record) => (
                     <Space>
                         <Button type="primary" onClick={() => this.handleChangeStatus(record)}>完成</Button>
+                        <Button type="primary" onClick={() => this.handleDeleteOrder(record)}>删除</Button>
+                        <Button type="primary" onClick={() => this.props.getOrderDetail(record.key)}>订单详情</Button>
                     </Space>
                 )
             }
@@ -140,4 +167,14 @@ class UnComplete extends Component {
     }
 }
 
-export default UnComplete;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getOrderDetail: (detail) => dispatch({
+                type: type.ORDER_DETAIL,
+                detail
+            })
+        
+    }
+}
+
+export default connect(null, mapDispatchToProps)(UnComplete);

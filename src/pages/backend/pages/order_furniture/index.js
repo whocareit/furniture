@@ -8,7 +8,12 @@ import {
     Form,
     notification
 } from 'antd';
-import { getOrderFurniture, addOrderFurniture, editOrderFurniture } from '../../../../api/order';
+import { 
+    getOrderFurniture, 
+    addOrderFurniture, 
+    editOrderFurniture,
+    deleteOrderFurniture
+} from '../../../../api/order';
 import { cloneDeep } from 'lodash';
 import './index.less'
 
@@ -53,7 +58,7 @@ class OrderFurniture extends Component {
                 })
                 this.setState({
                     pagination: {
-                        current, 
+                        current,
                         pageSize, 
                         total
                     },
@@ -63,11 +68,32 @@ class OrderFurniture extends Component {
         })
     }
 
+    //edit
     handleEditOrder = (record) => {
 
         this.setState({
             initialValues: record,
             visible: true
+        })
+
+    }
+    
+    //delete
+    handleDeleteOrder = (record) => {
+        const { pagination } = this.state;
+        const { key } = record;
+        deleteOrderFurniture({key}).then(res => {
+            const { errno, data } = res;
+            if(errno === 0) {
+                notification.success({
+                    message: data.info
+                })
+                this.dealReq(pagination);
+            } else {
+                notification.error({
+                    message: data.info
+                })
+            }
         })
 
     }
@@ -156,6 +182,7 @@ class OrderFurniture extends Component {
                 render: (record) => (
                     <Space>
                         <Button type="primary" onClick={() => this.handleEditOrder(record)}>编辑</Button>
+                        <Button type="primary" onClick={() => this.handleDeleteOrder(record)}>删除</Button>
                     </Space>
                 )
             }

@@ -48,7 +48,7 @@ export const sideConfig = [
     //     ]
     // },
     {
-        key: '6',
+        key: '5',
         title: '文件上传'
     }
 ]

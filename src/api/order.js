@@ -15,6 +15,12 @@ export const getIncomplete = (params) => post(baseUrl, "/order/incomplete", para
 //更改订单状态
 export const changeStatue = (params) => post(baseUrl, "/order/change", params);
 
+//删除订单
+export const deleteOrder = (params) => post(baseUrl, "/order/delete", params);
+
+//获取订单详情内容接口
+export const getOrderDetail = (params) => post(baseUrl, '/order/detail', params);
+
 //获取定制家具列表接口
 export const getOrderFurniture = (params) => post(baseUrl, '/order/furniture/list', params);
 
@@ -23,3 +29,7 @@ export const addOrderFurniture = (params) => post(baseUrl, '/order/furniture/add
 
 //编辑定制家具接口
 export const editOrderFurniture = (params) => post(baseUrl, '/order/furniture/edit', params);
+
+//删除定制家具接口
+export const deleteOrderFurniture = (params) => post(baseUrl, '/order/furniture/delete', params);
+

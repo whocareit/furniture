@@ -11,11 +11,14 @@ import Display from  './pages/display';
 import CarouselManege from './pages/new';
 import Profit from './pages/data_detail/profit';
 import Recommend from './pages/data_detail/recommond';
-import FileUpload from './pages/upload'
+import FileUpload from './pages/upload';
+import Detail from './pages/detail';
 
 import './index.less'
 
 import renderSideContent, { sideConfig } from './config';
+import { connect } from 'react-redux';
+import { type } from '../../../src/redux/action';
 
 const {  Content, Footer, Sider } = Layout;
 
@@ -43,6 +46,7 @@ class Backend extends Component {
 
         const allDeal = key.split(',');
         const index = parseInt(allDeal[0])
+        console.log(allDeal[0])
         if(allDeal[0]) {
             this.setState({
                 parent: sideConfig[index].title
@@ -83,9 +87,10 @@ class Backend extends Component {
                 return <Profit />
             case '5data,1' :
                 return <Recommend />
-            case '6' :
+            case '5' :
                 return <FileUpload />
         }
+
     }
 
     render() {
@@ -106,7 +111,9 @@ class Backend extends Component {
                             <Breadcrumb.Item>{child}</Breadcrumb.Item>
                         </Breadcrumb>
                         <div className="site-layout-background" style={{ padding: 24, minHeight: 360, minWidth: 1200 }}>
-                            {this.renderContent()}
+                            {
+                                this.props.detail === '' ? this.renderContent() : <Detail />
+                            }
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>liu hu design</Footer>
@@ -117,5 +124,20 @@ class Backend extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+    console.log(state.detail)
+    return {
+        detail: state.detail,
+    }
+}
 
-export default Backend;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getOrderDetail: (detail) => dispatch({
+            type: type.IS_LOGIN,
+            detail
+        }),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Backend);

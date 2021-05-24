@@ -8,7 +8,12 @@ import {
     Form,
     notification
 } from 'antd';
-import { getDisplayList, addDisplayList, editDisplayList } from '../../../../api/display';
+import { 
+    getDisplayList,
+    addDisplayList,
+    editDisplayList,
+    deleteDisplay
+} from '../../../../api/display';
 import { cloneDeep } from 'lodash';
 import './index.less'
 
@@ -79,6 +84,24 @@ class Display extends Component {
         this.setState({
             visible: true,
             initialValues: record
+        })
+    }
+
+    handleDeleteDisplay = (record) => {
+        const { pagination } = this.state;
+        const { key } = record;
+        deleteDisplay({key}).then(res => {
+            const { errno, data } = res;
+            if(errno === 0) {
+                notification.success({
+                    message: data.info
+                })
+                this.getDisplayListData(pagination);
+            } else {
+                notification.error({
+                    message: data.info
+                })
+            }
         })
     }
 
@@ -174,6 +197,7 @@ class Display extends Component {
                 render: (record) => (
                     <Space>
                         <Button type="primary" onClick={() => this.handleEditOrder(record)}>编辑</Button>
+                        <Button type="primary" onClick={() => this.handleDeleteDisplay(record)}>删除</Button>
                     </Space>
                 )
             }
